@@ -1,10 +1,10 @@
 {
     "name": "warrence/yii2-kartikgii",
-    "description": "Gii base on Kartik-V",
+    "description": "Gii Generator base on Kartik-V extension https://github.com/kartik-v",
     "authors": [
         {
-            "name": "Warrence Oo",
-            "email": "warrence@centralsoft.com.my"
+            "name": "Warrence",
+            "email": "warrence@gmail.com"
         }
     ],
     "autoload": {
