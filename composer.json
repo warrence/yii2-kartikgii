@@ -3,7 +3,11 @@
     "description": "Gii Generator base on Kartik-V extension https://github.com/kartik-v",
     "authors": [
         {
+<<<<<<< HEAD
             "name": "Warrence",
+=======
+            "name": "Warrence Oo",
+>>>>>>> FETCH_HEAD
             "email": "warrence@gmail.com"
         }
     ],
