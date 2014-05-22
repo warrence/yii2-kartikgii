@@ -44,6 +44,16 @@ $config['modules']['gii']['generators'] = [
 ```
 
 ```php
+//Add 'gridview' into your 'modules' section in backend/config/main.php
+'modules' => [
+        'gridview' => [
+            'class' => 'kartik\grid\Module',
+        ],
+
+    ],
+```
+
+```php
 //add modules 'datecontrol' into your 'modules' section in common/config/main 
 'modules' => [
         'datecontrol' =>  [
