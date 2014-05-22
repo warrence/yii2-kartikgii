@@ -35,7 +35,17 @@ or add
 to the ```require``` section of your `composer.json` file.
 
 ## Usage
+Configure Gii CRUD module
+
 ```php
+//Add this into backend/config/main-local.php
+$config['modules']['gii']['generators'] = [
+        'kartikgii-crud' => ['class' => 'warrence\kartikgii\crud\Generator'],
+    ];
+```
+
+```php
+//add modules 'datecontrol' into your 'modules' section in common/config/main 
 'modules' => [
         'datecontrol' =>  [
             'class' => 'kartik\datecontrol\Module',
