@@ -14,6 +14,53 @@ Thanks for the great kartik-v extension.
 
 For more information about kartik-v extension, please visit [I'm an inline-style link](https://www.github.com/kartik-v).
 
-INSTALLATION
-==============
+## Installation
 
+The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+
+Either run
+
+```
+$ php composer.phar require warrence/yii2-kartikgii "dev-master"
+```
+
+or add
+
+```
+"warrence/yii2-kartikgii": "dev-master"
+```
+
+to the ```require``` section of your `composer.json` file.
+
+## Usage
+```php
+'modules' => [
+        'datecontrol' =>  [
+            'class' => 'kartik\datecontrol\Module',
+
+            // format settings for displaying each date attribute
+            'displaySettings' => [
+                'date' => 'd-m-Y',
+                'time' => 'H:i:s A',
+                'datetime' => 'd-m-Y H:i:s A',
+            ],
+
+            // format settings for saving each date attribute
+            'saveSettings' => [
+                'date' => 'Y-m-d', 
+                'time' => 'H:i:s',
+                'datetime' => 'Y-m-d H:i:s',
+            ],
+
+
+
+            // automatically use kartik\widgets for each of the above formats
+            'autoWidget' => true,
+
+        ]
+    ]
+```
+
+## License
+
+**yii2-detail-view** is released under the BSD 3-Clause License. See the bundled `LICENSE.md` for details.
