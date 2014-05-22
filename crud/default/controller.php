@@ -89,9 +89,13 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      */
     public function actionView(<?= $actionParams ?>)
     {
-        return $this->render('view', [
-            'model' => $this->findModel(<?= $actionParams ?>),
-        ]);
+        $model = $this->findModel(<?= $actionParams ?>);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        return $this->redirect(['view', 'id' => $model-><?=$generator->getTableSchema()->primaryKey[0]?>]);
+        } else {
+        return $this->render('view', ['model' => $model]);
+}
     }
 
     /**

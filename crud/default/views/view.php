@@ -14,7 +14,8 @@ echo "<?php\n";
 ?>
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+use kartik\detail\DetailView;
+use kartik\datecontrol\DateControl;
 
 /**
  * @var yii\web\View $this
@@ -26,22 +27,20 @@ $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString(Infl
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-view">
+    <div class="page-header">
+        <h1><?= "<?= " ?>Html::encode($this->title) ?></h1>
+    </div>
 
-    <h1><?= "<?= " ?>Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= "<?= " ?>Html::a(<?= $generator->generateString('Update') ?>, ['update', <?= $urlParams ?>], ['class' => 'btn btn-primary']) ?>
-        <?= "<?= " ?>Html::a(<?= $generator->generateString('Delete') ?>, ['delete', <?= $urlParams ?>], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => <?= $generator->generateString('Are you sure you want to delete this item?') ?>,
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
 
     <?= "<?= " ?>DetailView::widget([
-        'model' => $model,
+            'model' => $model,
+            'condensed'=>false,
+            'hover'=>true,
+            'mode'=>Yii::$app->request->get('edit')=='t' ? DetailView::MODE_EDIT : DetailView::MODE_VIEW,
+            'panel'=>[
+            'heading'=>$this->title,
+            'type'=>DetailView::TYPE_INFO,
+        ],
         'attributes' => [
 <?php
 if (($tableSchema = $generator->getTableSchema()) === false) {
@@ -56,6 +55,14 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
 }
 ?>
         ],
+        'deleteOptions'=>[
+        'url'=>['delete', 'id' => $model-><?=$generator->getTableSchema()->primaryKey[0]?>],
+        'data'=>[
+        'confirm'=>Yii::t('app', 'Are you sure you want to delete this item?'),
+        'method'=>'post',
+        ],
+        ],
+        'enableEditMode'=>true,
     ]) ?>
 
 </div>
