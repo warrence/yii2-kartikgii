@@ -18,6 +18,7 @@
         "kartik-v/yii2-widgets": "*",
         "kartik-v/yii2-grid": "*",
         "kartik-v/yii2-icons": "*",
+        "kartik-v/yii2-datecontrol": "*",
         //"kartik-v/yii2-password": "*",
         //"kartik-v/yii2-markdown": "*",
         "kartik-v/yii2-helpers": "*",
