@@ -35,7 +35,6 @@ or add
 to the ```require``` section of your `composer.json` file.
 
 ## Usage
-Configure Gii CRUD module
 
 ```php
 //Add this into backend/config/main-local.php
