@@ -14,6 +14,8 @@ Thanks for the great kartik-v extension.
 
 For more information about kartik-v extension, please visit [I'm an inline-style link](https://www.github.com/kartik-v).
 
+> NOTE: This is the first extension i created, please kindly comment or suggest for better or correct me if im doing anything wrong. Thanks.
+
 ## Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
