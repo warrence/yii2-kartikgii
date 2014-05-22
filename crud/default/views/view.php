@@ -49,8 +49,43 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
     }
 } else {
     foreach ($generator->getTableSchema()->columns as $column) {
+
         $format = $generator->generateColumnFormat($column);
-        echo "            '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
+
+        if($column->type === 'date'){
+            echo "            [
+                'attribute'=>'$column->name',
+                'format'=>['date',(isset(Yii::\$app->modules['datecontrol']['displaySettings']['date'])) ? Yii::\$app->modules['datecontrol']['displaySettings']['date'] : 'd-m-Y'],
+                'type'=>DetailView::INPUT_WIDGET,
+                'widgetOptions'=> [
+                    'class'=>DateControl::classname(),
+                    'type'=>DateControl::FORMAT_DATE
+                ]
+            ],\n";
+
+        }elseif($column->type === 'time'){
+            echo "            [
+                'attribute'=>'$column->name',
+                'format'=>['time',(isset(Yii::\$app->modules['datecontrol']['displaySettings']['time'])) ? Yii::\$app->modules['datecontrol']['displaySettings']['time'] : 'H:i:s A'],
+                'type'=>DetailView::INPUT_WIDGET,
+                'widgetOptions'=> [
+                    'class'=>DateControl::classname(),
+                    'type'=>DateControl::FORMAT_TIME
+                ]
+            ],\n";
+        }elseif($column->type === 'datetime' || $column->type === 'timestamp'){
+            echo "            [
+                'attribute'=>'$column->name',
+                'format'=>['datetime',(isset(Yii::\$app->modules['datecontrol']['displaySettings']['datetime'])) ? Yii::\$app->modules['datecontrol']['displaySettings']['datetime'] : 'd-m-Y H:i:s A'],
+                'type'=>DetailView::INPUT_WIDGET,
+                'widgetOptions'=> [
+                    'class'=>DateControl::classname(),
+                    'type'=>DateControl::FORMAT_DATETIME
+                ]
+            ],\n";
+        }else{
+            echo "            '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
+        }
     }
 }
 ?>

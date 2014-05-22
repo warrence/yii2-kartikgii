@@ -3,6 +3,7 @@
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
 
+
 /**
  * @var yii\web\View $this
  * @var yii\gii\generators\crud\Generator $generator
@@ -16,10 +17,13 @@ if (empty($safeAttributes)) {
 }
 
 echo "<?php\n";
+
 ?>
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use kartik\widgets\ActiveForm;
+use kartik\builder\Form;
+use kartik\datecontrol\DateControl;
 
 /**
  * @var yii\web\View $this
@@ -30,15 +34,19 @@ use yii\widgets\ActiveForm;
 
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">
 
-    <?= "<?php " ?>$form = ActiveForm::begin(); ?>
+    <?= "<?php " ?>$form = ActiveForm::begin(); echo Form::widget([
+
+    'model' => $model,
+    'form' => $form,
+    'columns' => 2,
+    'attributes' => [
 
 <?php foreach ($safeAttributes as $attribute) {
-    echo "    <?= " . $generator->generateActiveField($attribute) . " ?>\n\n";
+    echo $generator->generateActiveField($attribute) . " \n\n";
 } ?>
-    <div class="form-group">
-        <?= "<?= " ?>Html::submitButton($model->isNewRecord ? <?= $generator->generateString('Create') ?> : <?= $generator->generateString('Update') ?>, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
+    ]
 
-    <?= "<?php " ?>ActiveForm::end(); ?>
+
+    ]); ActiveForm::end(); ?>
 
 </div>
