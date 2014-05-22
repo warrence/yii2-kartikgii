@@ -47,6 +47,8 @@ use kartik\datecontrol\DateControl;
     ]
 
 
-    ]); ActiveForm::end(); ?>
+    ]);
+    echo Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
+    ActiveForm::end(); ?>
 
 </div>
