@@ -79,7 +79,7 @@ $config['modules']['gii']['generators'] = [
             'autoWidget' => true,
 
         ]
-    ]
+    ],
 ```
 
 ## License
