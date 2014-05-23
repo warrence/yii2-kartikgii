@@ -34,7 +34,7 @@ use kartik\datecontrol\DateControl;
 
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">
 
-    <?= "<?php " ?>$form = ActiveForm::begin(); echo Form::widget([
+    <?= "<?php " ?>$form = ActiveForm::begin(['type'=>ActiveForm::TYPE_HORIZONTAL]); echo Form::widget([
 
     'model' => $model,
     'form' => $form,
