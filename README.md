@@ -37,6 +37,14 @@ to the ```require``` section of your `composer.json` file.
 ## Usage
 
 ```php
+//if your gii modules configuration looks like below:
+$config['modules']['gii'] = 'yii\gii\Module';
+
+//change it to
+$config['modules']['gii']['class'] = 'yii\gii\Module';
+```
+
+```php
 //Add this into backend/config/main-local.php
 $config['modules']['gii']['generators'] = [
         'kartikgii-crud' => ['class' => 'warrence\kartikgii\crud\Generator'],
