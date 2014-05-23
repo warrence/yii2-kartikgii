@@ -38,7 +38,7 @@ use kartik\datecontrol\DateControl;
 
     'model' => $model,
     'form' => $form,
-    'columns' => 2,
+    'columns' => 1,
     'attributes' => [
 
 <?php foreach ($safeAttributes as $attribute) {
