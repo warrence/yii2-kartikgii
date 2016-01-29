@@ -84,7 +84,7 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
                 'class' => 'yii\grid\ActionColumn',
                 'buttons' => [
                 'update' => function ($url, $model) {
-                                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Yii::$app->urlManager->createUrl(['<?= ($generator->moduleID ? ($generator->moduleID . '/'): '') . $generator->controllerID?>/view',<?= $urlParams ?>,'edit'=>'t']), [
+                                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Yii::$app->urlManager->createUrl(['<?= (empty($generator->moduleID) ? '' : $generator->moduleID . '/') . $generator->controllerID?>/view',<?= $urlParams ?>,'edit'=>'t']), [
                                                     'title' => Yii::t('yii', 'Edit'),
                                                   ]);}
 
