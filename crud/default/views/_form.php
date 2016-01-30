@@ -36,18 +36,18 @@ use kartik\datecontrol\DateControl;
 
     <?= "<?php " ?>$form = ActiveForm::begin(['type'=>ActiveForm::TYPE_HORIZONTAL]); echo Form::widget([
 
-    'model' => $model,
-    'form' => $form,
-    'columns' => 1,
-    'attributes' => [
+        'model' => $model,
+        'form' => $form,
+        'columns' => 1,
+        'attributes' => [
 
-<?php foreach ($safeAttributes as $attribute) {
-    echo $generator->generateActiveField($attribute) . " \n\n";
-} ?>
-    ]
-
+<?php foreach ($safeAttributes as $attribute): ?>
+            <?= $generator->generateActiveField($attribute) . "\n\n"; ?>
+<?php endforeach; ?>
+        ]
 
     ]);
+
     echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
     ActiveForm::end(); ?>
 
