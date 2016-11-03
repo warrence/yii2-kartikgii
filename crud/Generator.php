@@ -233,27 +233,27 @@ class Generator extends \yii\gii\generators\crud\Generator
         $tableSchema = $this->getTableSchema();
         if ($tableSchema === false || !isset($tableSchema->columns[$attribute])) {
             if (preg_match('/^(password|pass|passwd|passcode)$/i', $attribute)) {
-                return "'$attribute'=>['type'=> TabularForm::INPUT_PASSWORD,'options'=>['placeholder'=>'Enter ".$attributeLabels[$attribute]."...']],";
+                return "'$attribute' => ['type' => TabularForm::INPUT_PASSWORD,'options' => ['placeholder' => 'Enter ".$attributeLabels[$attribute]."...']],";
                 //return "\$form->field(\$model, '$attribute')->passwordInput()";
             } else {
-                return "'$attribute'=>['type'=> TabularForm::INPUT_TEXT, 'options'=>['placeholder'=>'Enter ".$attributeLabels[$attribute]."...']],";
+                return "'$attribute' => ['type' => TabularForm::INPUT_TEXT, 'options' => ['placeholder' => 'Enter ".$attributeLabels[$attribute]."...']],";
                 //return "\$form->field(\$model, '$attribute')";
             }
         }
         $column = $tableSchema->columns[$attribute];
         if ($column->phpType === 'boolean') {
             //return "\$form->field(\$model, '$attribute')->checkbox()";
-            return "'$attribute'=>['type'=> Form::INPUT_CHECKBOX, 'options'=>['placeholder'=>'Enter ".$attributeLabels[$attribute]."...']],";
+            return "'$attribute' => ['type' => Form::INPUT_CHECKBOX, 'options' => ['placeholder' => 'Enter ".$attributeLabels[$attribute]."...']],";
         } elseif ($column->type === 'text') {
             //return "\$form->field(\$model, '$attribute')->textarea(['rows' => 6])";
-            return "'$attribute'=>['type'=> Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'Enter ".$attributeLabels[$attribute]."...','rows'=> 6]],";
-        } elseif($column->type === 'date'){
-            return "'$attribute'=>['type'=> Form::INPUT_WIDGET, 'widgetClass'=>DateControl::classname(),'options'=>['type'=>DateControl::FORMAT_DATE]],";
-        } elseif($column->type === 'time'){
-            return "'$attribute'=>['type'=> Form::INPUT_WIDGET, 'widgetClass'=>DateControl::classname(),'options'=>['type'=>DateControl::FORMAT_TIME]],";
-        } elseif($column->type === 'datetime' || $column->type === 'timestamp'){
-            return "'$attribute'=>['type'=> Form::INPUT_WIDGET, 'widgetClass'=>DateControl::classname(),'options'=>['type'=>DateControl::FORMAT_DATETIME]],";
-        }else{
+            return "'$attribute' => ['type' => Form::INPUT_TEXTAREA, 'options' => ['placeholder' => 'Enter ".$attributeLabels[$attribute]."...','rows' => 6]],";
+        } elseif ($column->type === 'date') {
+            return "'$attribute' => ['type' => Form::INPUT_WIDGET, 'widgetClass' => DateControl::classname(),'options' => ['type' => DateControl::FORMAT_DATE]],";
+        } elseif ($column->type === 'time') {
+            return "'$attribute' => ['type' => Form::INPUT_WIDGET, 'widgetClass' => DateControl::classname(),'options' => ['type' => DateControl::FORMAT_TIME]],";
+        } elseif ($column->type === 'datetime' || $column->type === 'timestamp') {
+            return "'$attribute' => ['type' => Form::INPUT_WIDGET, 'widgetClass' => DateControl::classname(),'options' => ['type' => DateControl::FORMAT_DATETIME]],";
+        } else {
             if (preg_match('/^(password|pass|passwd|passcode)$/i', $column->name)) {
                 $input = 'INPUT_PASSWORD';
             } else {
@@ -261,10 +261,10 @@ class Generator extends \yii\gii\generators\crud\Generator
             }
             if ($column->phpType !== 'string' || $column->size === null) {
                 //return "\$form->field(\$model, '$attribute')->$input()";
-                return "'$attribute'=>['type'=> Form::".$input.", 'options'=>['placeholder'=>'Enter ".$attributeLabels[$attribute]."...']],";
+                return "'$attribute' => ['type' => Form::".$input.", 'options' => ['placeholder' => 'Enter ".$attributeLabels[$attribute]."...']],";
             } else {
                 //return "\$form->field(\$model, '$attribute')->$input(['maxlength' => $column->size])";
-                return "'$attribute'=>['type'=> Form::".$input.", 'options'=>['placeholder'=>'Enter ".$attributeLabels[$attribute]."...', 'maxlength'=>".$column->size."]],";
+                return "'$attribute' => ['type' => Form::".$input.", 'options' => ['placeholder' => 'Enter ".$attributeLabels[$attribute]."...', 'maxlength' => ".$column->size."]],";
             }
         }
     }

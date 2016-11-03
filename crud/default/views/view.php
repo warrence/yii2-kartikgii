@@ -33,13 +33,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <?= "<?= " ?>DetailView::widget([
-            'model' => $model,
-            'condensed'=>false,
-            'hover'=>true,
-            'mode'=>Yii::$app->request->get('edit')=='t' ? DetailView::MODE_EDIT : DetailView::MODE_VIEW,
-            'panel'=>[
-            'heading'=>$this->title,
-            'type'=>DetailView::TYPE_INFO,
+        'model' => $model,
+        'condensed' => false,
+        'hover' => true,
+        'mode' => Yii::$app->request->get('edit') == 't' ? DetailView::MODE_EDIT : DetailView::MODE_VIEW,
+        'panel' => [
+            'heading' => $this->title,
+            'type' => DetailView::TYPE_INFO,
         ],
         'attributes' => [
 <?php
@@ -52,52 +52,63 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
 
         $format = $generator->generateColumnFormat($column);
 
-        if($column->type === 'date'){
-            echo "            [
-                'attribute'=>'$column->name',
-                'format'=>['date',(isset(Yii::\$app->modules['datecontrol']['displaySettings']['date'])) ? Yii::\$app->modules['datecontrol']['displaySettings']['date'] : 'd-m-Y'],
-                'type'=>DetailView::INPUT_WIDGET,
-                'widgetOptions'=> [
-                    'class'=>DateControl::classname(),
-                    'type'=>DateControl::FORMAT_DATE
+        if ($column->type === 'date') {
+            echo
+"            [
+                'attribute' => '$column->name',
+                'format' => [
+                    'date', (isset(Yii::\$app->modules['datecontrol']['displaySettings']['date']))
+                        ? Yii::\$app->modules['datecontrol']['displaySettings']['date']
+                        : 'd-m-Y'
+                ],
+                'type' => DetailView::INPUT_WIDGET,
+                'widgetOptions' => [
+                    'class' => DateControl::classname(),
+                    'type' => DateControl::FORMAT_DATE
                 ]
             ],\n";
 
-        }elseif($column->type === 'time'){
-            echo "            [
-                'attribute'=>'$column->name',
-                'format'=>['time',(isset(Yii::\$app->modules['datecontrol']['displaySettings']['time'])) ? Yii::\$app->modules['datecontrol']['displaySettings']['time'] : 'H:i:s A'],
-                'type'=>DetailView::INPUT_WIDGET,
-                'widgetOptions'=> [
-                    'class'=>DateControl::classname(),
-                    'type'=>DateControl::FORMAT_TIME
+        } elseif ($column->type === 'time') {
+            echo
+"            [
+                'attribute' => '$column->name',
+                'format' => [
+                    'time', (isset(Yii::\$app->modules['datecontrol']['displaySettings']['time']))
+                        ? Yii::\$app->modules['datecontrol']['displaySettings']['time']
+                        : 'H:i:s A'
+                ],
+                'type' => DetailView::INPUT_WIDGET,
+                'widgetOptions' => [
+                    'class' => DateControl::classname(),
+                    'type' => DateControl::FORMAT_TIME
                 ]
             ],\n";
-        }elseif($column->type === 'datetime' || $column->type === 'timestamp'){
-            echo "            [
-                'attribute'=>'$column->name',
-                'format'=>['datetime',(isset(Yii::\$app->modules['datecontrol']['displaySettings']['datetime'])) ? Yii::\$app->modules['datecontrol']['displaySettings']['datetime'] : 'd-m-Y H:i:s A'],
-                'type'=>DetailView::INPUT_WIDGET,
-                'widgetOptions'=> [
-                    'class'=>DateControl::classname(),
-                    'type'=>DateControl::FORMAT_DATETIME
+        } elseif ($column->type === 'datetime' || $column->type === 'timestamp') {
+            echo
+"            [
+                'attribute' => '$column->name',
+                'format' => [
+                    'datetime', (isset(Yii::\$app->modules['datecontrol']['displaySettings']['datetime']))
+                        ? Yii::\$app->modules['datecontrol']['displaySettings']['datetime']
+                        : 'd-m-Y H:i:s A'
+                ],
+                'type' => DetailView::INPUT_WIDGET,
+                'widgetOptions' => [
+                    'class' => DateControl::classname(),
+                    'type' => DateControl::FORMAT_DATETIME
                 ]
             ],\n";
-        }else{
+        } else {
             echo "            '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
         }
     }
 }
 ?>
         ],
-        'deleteOptions'=>[
-            'url'=>['delete', 'id' => $model-><?=$generator->getTableSchema()->primaryKey[0]?>],
-            'data'=>[
-                'confirm'=>Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method'=>'post',
-            ],
+        'deleteOptions' => [
+            'url' => ['delete', 'id' => $model-><?=$generator->getTableSchema()->primaryKey[0]?>],
         ],
-        'enableEditMode'=>true,
+        'enableEditMode' => true,
     ]) ?>
 
 </div>
