@@ -1,3 +1,5 @@
+I would like to apologize for not following up with this plugin because i has been migrate over to Laravel. However i would like to thanks everyone for using this plugin. Please do let me know is there any nice fork of this project, i will share to link for everyone here. 
+
 yii2-kartikgii
 ==============
 
