@@ -5,7 +5,8 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace warrence\kartikgii\crud;
+//namespace warrence\kartikgii\crud;
+namespace zhangyc310\kartikgii\crud;
 
 use Yii;
 use yii\db\ActiveRecord;
