@@ -30,12 +30,44 @@ use yii\web\Controller;
  */
 class Generator extends \yii\gii\generators\crud\Generator
 {
+    public $listFields;
+    public $formFields;
+    public $inputType;
+
     public $modelClass;
     public $moduleID;
     public $controllerClass;
     public $baseControllerClass = 'yii\web\Controller';
-    public $indexWidgetType = 'grid';
-    public $searchModelClass = '';
+    public $indexWidgetType     = 'grid';
+    public $searchModelClass    = '';
+
+    public function fieldTypes()
+    {
+        return [
+            'text'         => "text",
+            'textarea'     => "textarea",
+            'password'     => "password",
+            'time'         => "time",
+            'date'         => "date",
+            'datetime'     => "datetime",
+            'dropDownList' => "dropDownList",
+            'radioList'    => "radioList",
+            'checkbox'     => "checkbox",
+            'checkboxList' => "checkboxList",
+            'select2'      => 'Select2',
+            'file'         => 'upload file',
+            'image'        => 'upload image',
+
+            // 'multipleInput' => "Input组",
+            // 'baiduUEditor'    => "百度编辑器",
+            // 'image'           => "图片上传",
+            // 'images'          => "多图上传",
+            // 'file'            => "文件上传",
+            // 'files'           => "多文件上传",
+            // 'cropper'         => "图片裁剪上传",
+            // 'latLngSelection' => "经纬度选择",
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -74,6 +106,7 @@ class Generator extends \yii\gii\generators\crud\Generator
             [['moduleID'], 'validateModuleID'],
             [['enableI18N'], 'boolean'],
             [['messageCategory'], 'validateMessageCategory', 'skipOnEmpty' => false],
+            [['listFields', 'formFields', 'inputType'], 'safe'],
         ]);
     }
 
@@ -83,12 +116,12 @@ class Generator extends \yii\gii\generators\crud\Generator
     public function attributeLabels()
     {
         return array_merge(parent::attributeLabels(), [
-            'modelClass' => 'Model Class',
-            'moduleID' => 'Module ID',
-            'controllerClass' => 'Controller Class',
+            'modelClass'          => 'Model Class',
+            'moduleID'            => 'Module ID',
+            'controllerClass'     => 'Controller Class',
             'baseControllerClass' => 'Base Controller Class',
-            'indexWidgetType' => 'Widget Used in Index Page',
-            'searchModelClass' => 'Search Model Class',
+            'indexWidgetType'     => 'Widget Used in Index Page',
+            'searchModelClass'    => 'Search Model Class',
         ]);
     }
 
@@ -98,18 +131,18 @@ class Generator extends \yii\gii\generators\crud\Generator
     public function hints()
     {
         return array_merge(parent::hints(), [
-            'modelClass' => 'This is the ActiveRecord class associated with the table that CRUD will be built upon.
+            'modelClass'          => 'This is the ActiveRecord class associated with the table that CRUD will be built upon.
                 You should provide a fully qualified class name, e.g., <code>app\models\Post</code>.',
-            'controllerClass' => 'This is the name of the controller class to be generated. You should
+            'controllerClass'     => 'This is the name of the controller class to be generated. You should
                 provide a fully qualified namespaced class, .e.g, <code>app\controllers\PostController</code>.
                 The controller class name should follow the CamelCase scheme with an uppercase first letter',
             'baseControllerClass' => 'This is the class that the new CRUD controller class will extend from.
                 You should provide a fully qualified class name, e.g., <code>yii\web\Controller</code>.',
-            'moduleID' => 'This is the ID of the module that the generated controller will belong to.
+            'moduleID'            => 'This is the ID of the module that the generated controller will belong to.
                 If not set, it means the controller will belong to the application.',
-            'indexWidgetType' => 'This is the widget type to be used in the index page to display list of the models.
+            'indexWidgetType'     => 'This is the widget type to be used in the index page to display list of the models.
                 You may choose either <code>GridView</code> or <code>ListView</code>',
-            'searchModelClass' => 'This is the name of the search model class to be generated. You should provide a fully
+            'searchModelClass'    => 'This is the name of the search model class to be generated. You should provide a fully
                 qualified namespaced class name, e.g., <code>app\models\PostSearch</code>.',
         ]);
     }
@@ -137,7 +170,7 @@ class Generator extends \yii\gii\generators\crud\Generator
     {
         /** @var ActiveRecord $class */
         $class = $this->modelClass;
-        $pk = $class::primaryKey();
+        $pk    = $class::primaryKey();
         if (empty($pk)) {
             $this->addError('modelClass', "The table associated with $class must have primary key(s).");
         }
@@ -169,10 +202,10 @@ class Generator extends \yii\gii\generators\crud\Generator
 
         if (!empty($this->searchModelClass)) {
             $searchModel = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->searchModelClass, '\\') . '.php'));
-            $files[] = new CodeFile($searchModel, $this->render('search.php'));
+            $files[]     = new CodeFile($searchModel, $this->render('search.php'));
         }
 
-        $viewPath = $this->getViewPath();
+        $viewPath     = $this->getViewPath();
         $templatePath = $this->getTemplatePath() . '/views';
         foreach (scandir($templatePath) as $file) {
             if (empty($this->searchModelClass) && $file === '_search.php') {
@@ -191,7 +224,7 @@ class Generator extends \yii\gii\generators\crud\Generator
      */
     public function getControllerID()
     {
-        $pos = strrpos($this->controllerClass, '\\');
+        $pos   = strrpos($this->controllerClass, '\\');
         $class = substr(substr($this->controllerClass, $pos + 1), 0, -10);
 
         return Inflector::camel2id($class);
@@ -204,7 +237,7 @@ class Generator extends \yii\gii\generators\crud\Generator
     {
         $module = empty($this->moduleID) ? Yii::$app : Yii::$app->getModule($this->moduleID);
 
-        return $module->getViewPath() . '/' . $this->getControllerID() ;
+        return $module->getViewPath() . '/' . $this->getControllerID();
     }
 
     public function getNameAttribute()
@@ -216,7 +249,7 @@ class Generator extends \yii\gii\generators\crud\Generator
         }
         /** @var \yii\db\ActiveRecord $class */
         $class = $this->modelClass;
-        $pk = $class::primaryKey();
+        $pk    = $class::primaryKey();
 
         return $pk[0];
     }
@@ -226,33 +259,110 @@ class Generator extends \yii\gii\generators\crud\Generator
      * @param string $attribute
      * @return string
      */
+
     public function generateActiveField($attribute)
     {
-        $model = new $this->modelClass();
+        $model           = new $this->modelClass();
         $attributeLabels = $model->attributeLabels();
-        $tableSchema = $this->getTableSchema();
+        $tableSchema     = $this->getTableSchema();
         if ($tableSchema === false || !isset($tableSchema->columns[$attribute])) {
             if (preg_match('/^(password|pass|passwd|passcode)$/i', $attribute)) {
-                return "'$attribute' => ['type' => TabularForm::INPUT_PASSWORD,'options' => ['placeholder' => 'Enter ".$attributeLabels[$attribute]."...']],";
+                return "'$attribute' => ['type' => TabularForm::INPUT_PASSWORD,'options' => ['placeholder' => 'Enter " . $attributeLabels[$attribute] . "...']],";
                 //return "\$form->field(\$model, '$attribute')->passwordInput()";
             } else {
-                return "'$attribute' => ['type' => TabularForm::INPUT_TEXT, 'options' => ['placeholder' => 'Enter ".$attributeLabels[$attribute]."...']],";
+                return "'$attribute' => ['type' => TabularForm::INPUT_TEXT, 'options' => ['placeholder' => 'Enter " . $attributeLabels[$attribute] . "...']],";
                 //return "\$form->field(\$model, '$attribute')";
             }
         }
         $column = $tableSchema->columns[$attribute];
-        if ($column->phpType === 'boolean') {
+        $type   = $this->inputType[$attribute];
+        if ($type === 'radioList') {
             //return "\$form->field(\$model, '$attribute')->checkbox()";
-            return "'$attribute' => ['type' => Form::INPUT_CHECKBOX, 'options' => ['placeholder' => 'Enter ".$attributeLabels[$attribute]."...']],";
-        } elseif ($column->type === 'text') {
+            return "'$attribute' => [
+                'type'    => Form::INPUT_RADIO_LIST,
+                'items'   => [true => 'Active', false => 'Inactive', 'ok'=> 'radioList'],
+                'options' => ['inline' => true],
+        ],";
+
+        } elseif ($type === 'checkbox') {
+            return "'$attribute' => [
+            'type' => Form::INPUT_CHECKBOX,
+            'label' => 'Remember your settings?',
+             ],";
+        } elseif ($type === 'checkboxList') {
+            return "'$attribute' => ['type' => Form::INPUT_CHECKBOX_LIST,
+                 'items'=>[  'value1' => 'v1',   'value2' => 'v2'],
+                'options'=>['text' => 'Please select', 'options' => ['value' => 'none', 'class' => 'prompt', 'label' => 'Select']],
+             ],";
+        } elseif ($type === 'dropDownList') {
+            return "'$attribute' => ['type' => Form::INPUT_DROPDOWN_LIST,
+                'items'=>[  'value1' => 'value 1',   'value2' =>'value 2'],
+                'options'=>['text' => 'Please select', 'options' => ['value' => 'none', 'class' => 'prompt', 'label' => 'Select']],
+            ],";
+        } elseif ($type === 'text') {
+            return "'$attribute' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter " . $attributeLabels[$attribute] . "...','rows' => 6]],";
+        } elseif ($type === 'textarea') {
             //return "\$form->field(\$model, '$attribute')->textarea(['rows' => 6])";
-            return "'$attribute' => ['type' => Form::INPUT_TEXTAREA, 'options' => ['placeholder' => 'Enter ".$attributeLabels[$attribute]."...','rows' => 6]],";
-        } elseif ($column->type === 'date') {
+            return "'$attribute' => ['type' => Form::INPUT_TEXTAREA, 'options' => ['placeholder' => 'Enter " . $attributeLabels[$attribute] . "...','rows' => 6]],";
+        } elseif ($type === 'date') {
             return "'$attribute' => ['type' => Form::INPUT_WIDGET, 'widgetClass' => DateControl::classname(),'options' => ['type' => DateControl::FORMAT_DATE]],";
-        } elseif ($column->type === 'time') {
+        } elseif ($type === 'time') {
             return "'$attribute' => ['type' => Form::INPUT_WIDGET, 'widgetClass' => DateControl::classname(),'options' => ['type' => DateControl::FORMAT_TIME]],";
-        } elseif ($column->type === 'datetime' || $column->type === 'timestamp') {
+        } elseif ($type === 'datetime' || $type === 'timestamp') {
             return "'$attribute' => ['type' => Form::INPUT_WIDGET, 'widgetClass' => DateControl::classname(),'options' => ['type' => DateControl::FORMAT_DATETIME]],";
+
+        } elseif ($type === 'select2') {
+            return "'$attribute' => [
+                'type'        => Form::INPUT_WIDGET,
+                'widgetClass' => '\kartik\select2\Select2',
+                'options'     => [
+                    'data'          => [true => 'Active', false => 'Inactive', 'ok' => 'radioList'],
+                    'pluginOptions' => [
+                        'allowClear'      => true,
+                        'closeOnSelect'   => false,
+                        'tags'            => true,
+                        'multiple'        => true,
+                        'tokenSeparators' => [',', ' '],
+                        // 'placeholder'     => 'Select  ...',
+                        'hint'            => 'Type and select state',
+                    ],
+                ],
+            ],";
+        } elseif ($type === 'file') {
+            return "'$attribute' => ['type' => Form::INPUT_WIDGET, 'widgetClass' => FileInput::classname(),
+                'options'            => [
+                    'options'       => ['accept' => 'image/*', 'multiple' => true],
+                    'pluginOptions' => [
+                        // 'allowedFileExtensions' => ['csv'],
+                        'showUpload'  => true,
+                        'browseLabel' => 'upload file',
+                        'removeLabel' => '',
+                        'showPreview' => true,
+                    ],
+                ],
+            ],";
+        } elseif ($type === 'image') {
+            return "'$attribute' => [
+                'type' => Form::INPUT_WIDGET,
+                'widgetClass' => FileInput::classname(),
+                'name' => 'attachment_3',
+                'attribute' => 'attachment_1[]',
+                'options'            => [
+                'options'       => ['accept' => 'image/*', 'multiple' => true],
+                'pluginOptions' => [
+                    // 'allowedFileExtensions' => ['csv'],
+                    'showUpload'  => true,
+                    'browseLabel' => 'upload image',
+                    'removeLabel' => '',
+                    'showPreview' => true,
+                ],
+            ],
+            ],";
+        } elseif ($type === 'password') {
+            return "'$attribute' => [
+                'type' => Form::INPUT_PASSWORD,
+                'options' => ['placeholder' => 'Enter Password...']
+            ],";
         } else {
             if (preg_match('/^(password|pass|passwd|passcode)$/i', $column->name)) {
                 $input = 'INPUT_PASSWORD';
@@ -261,10 +371,10 @@ class Generator extends \yii\gii\generators\crud\Generator
             }
             if ($column->phpType !== 'string' || $column->size === null) {
                 //return "\$form->field(\$model, '$attribute')->$input()";
-                return "'$attribute' => ['type' => Form::".$input.", 'options' => ['placeholder' => 'Enter ".$attributeLabels[$attribute]."...']],";
+                return "'$attribute' => ['type' => Form::" . $input . ", 'options' => ['placeholder' => 'Enter " . $attributeLabels[$attribute] . "...']],";
             } else {
                 //return "\$form->field(\$model, '$attribute')->$input(['maxlength' => $column->size])";
-                return "'$attribute' => ['type' => Form::".$input.", 'options' => ['placeholder' => 'Enter ".$attributeLabels[$attribute]."...', 'maxlength' => ".$column->size."]],";
+                return "'$attribute' => ['type' => Form::" . $input . ", 'options' => ['placeholder' => 'Enter " . $attributeLabels[$attribute] . "...', 'maxlength' => " . $column->size . "]],";
             }
         }
     }
@@ -295,7 +405,7 @@ class Generator extends \yii\gii\generators\crud\Generator
      */
     public function generateColumnFormat($column)
     {
-        if ($column->phpType === 'boolean') {
+        if ($column->phpType === 'tinyint') {
             return 'boolean';
         } elseif ($column->type === 'text') {
             return 'ntext';
@@ -368,9 +478,9 @@ class Generator extends \yii\gii\generators\crud\Generator
     public function generateSearchLabels()
     {
         /** @var \yii\base\Model $model */
-        $model = new $this->modelClass();
+        $model           = new $this->modelClass();
         $attributeLabels = $model->attributeLabels();
-        $labels = [];
+        $labels          = [];
         foreach ($this->getColumnNames() as $name) {
             if (isset($attributeLabels[$name])) {
                 $labels[$name] = $attributeLabels[$name];
@@ -436,8 +546,8 @@ class Generator extends \yii\gii\generators\crud\Generator
         $conditions = [];
         if (!empty($hashConditions)) {
             $conditions[] = "\$query->andFilterWhere([\n"
-                . str_repeat(' ', 12) . implode("\n" . str_repeat(' ', 12), $hashConditions)
-                . "\n" . str_repeat(' ', 8) . "]);\n";
+            . str_repeat(' ', 12) . implode("\n" . str_repeat(' ', 12), $hashConditions)
+            . "\n" . str_repeat(' ', 8) . "]);\n";
         }
         if (!empty($likeConditions)) {
             $conditions[] = "\$query" . implode("\n" . str_repeat(' ', 12), $likeConditions) . ";\n";
@@ -454,7 +564,7 @@ class Generator extends \yii\gii\generators\crud\Generator
     {
         /** @var ActiveRecord $class */
         $class = $this->modelClass;
-        $pks = $class::primaryKey();
+        $pks   = $class::primaryKey();
         if (count($pks) === 1) {
             if (is_subclass_of($class, 'yii\mongodb\ActiveRecord')) {
                 return "'id' => (string)\$model->{$pks[0]}";
@@ -483,7 +593,7 @@ class Generator extends \yii\gii\generators\crud\Generator
     {
         /** @var ActiveRecord $class */
         $class = $this->modelClass;
-        $pks = $class::primaryKey();
+        $pks   = $class::primaryKey();
         if (count($pks) === 1) {
             return '$id';
         } else {
@@ -499,7 +609,7 @@ class Generator extends \yii\gii\generators\crud\Generator
     {
         /** @var ActiveRecord $class */
         $class = $this->modelClass;
-        $pks = $class::primaryKey();
+        $pks   = $class::primaryKey();
         if (($table = $this->getTableSchema()) === false) {
             $params = [];
             foreach ($pks as $pk) {
