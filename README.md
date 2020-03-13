@@ -1,6 +1,12 @@
 ## Enhances:
-add support more fieldtypes ,such as select2,file upload,checkbox,checkboxList,dropdowlist and so.
 
+bulk-del brach.
+1. add support more fieldtypes ,such as select2,file upload,checkbox,checkboxList,dropdowlist and so.
+2. bulk delete on index page
+
+![image](https://raw.githubusercontent.com/zhangyc310/yii2-kartikgii/bulk-del/images/gii-types.png)
+
+![image](https://raw.githubusercontent.com/zhangyc310/yii2-kartikgii/bulk-del/images/bulk-del.png)
 =============
 
 I would like to apologize for not following up with this plugin because i has been migrate over to Laravel. However i would like to thanks everyone for using this plugin. Please do let me know is there any nice fork of this project, i will share to link for everyone here. 
