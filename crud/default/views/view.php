@@ -16,7 +16,7 @@ echo "<?php\n";
 use yii\helpers\Html;
 use kartik\detail\DetailView;
 use kartik\datecontrol\DateControl;
-
+use yii\widgets\Breadcrumbs;
 /**
  * @var yii\web\View $this
  * @var <?= ltrim($generator->modelClass, '\\') ?> $model
@@ -25,6 +25,9 @@ use kartik\datecontrol\DateControl;
 $this->title = $model-><?= $generator->getNameAttribute() ?>;
 $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)))) ?>, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+echo Breadcrumbs::widget([
+    'links' =>  $this->params['breadcrumbs'] ,
+]);
 ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-view">
     <div class="page-header">

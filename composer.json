@@ -1,17 +1,17 @@
 {
-    "name": "warrence/yii2-kartikgii",
+    "name": "zhangyc310/yii2-kartikgii",
     "description": "Gii Generator base on Kartik-V extension https://github.com/kartik-v",
     "authors": [
         {
 
-            "name": "Warrence",
+            "name": "zhangyc",
 
-            "email": "warrence@gmail.com"
+            "email": "yqf0215@gmail.com"
         }
     ],
     "autoload": {
         "psr-4": {
-            "warrence\\kartikgii\\": ""
+            "zhangyc310\\kartikgii\\": ""
         }
     },
     "require": {
@@ -22,6 +22,6 @@
         "kartik-v/yii2-helpers": "*",
         "kartik-v/yii2-builder": "*",
         "kartik-v/yii2-detail-view": "*",
-        "php": ">=5.3.0"
+        "php": ">=5.6"
     }
 }

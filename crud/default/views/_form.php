@@ -24,7 +24,7 @@ use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\datecontrol\DateControl;
-
+use kartik\widgets\FileInput;
 /**
  * @var yii\web\View $this
  * @var <?= ltrim($generator->modelClass, '\\') ?> $model
