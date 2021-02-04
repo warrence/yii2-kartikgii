@@ -36,14 +36,14 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-$ php composer.phar require zhangyc310/yii2-kartikgii "dev-master"
+$ php composer.phar require zhangyc310/yii2-kartikgii "bulk-del"
 //$ php composer.phar require warrence/yii2-kartikgii "dev-master"
 ```
 
 or add
 
 ```
-"zhangyc310/yii2-kartikgii": "dev-master"
+"zhangyc310/yii2-kartikgii": "bulk-del"
 //"warrence/yii2-kartikgii": "dev-master"
 ```
 
