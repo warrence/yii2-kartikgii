@@ -36,13 +36,15 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-$ php composer.phar require warrence/yii2-kartikgii "dev-master"
+$ php composer.phar require zhangyc310/yii2-kartikgii "dev-master"
+//$ php composer.phar require warrence/yii2-kartikgii "dev-master"
 ```
 
 or add
 
 ```
-"warrence/yii2-kartikgii": "dev-master"
+"zhangyc310/yii2-kartikgii": "dev-master"
+//"warrence/yii2-kartikgii": "dev-master"
 ```
 
 to the ```require``` section of your `composer.json` file.
@@ -59,9 +61,14 @@ $config['modules']['gii']['class'] = 'yii\gii\Module';
 
 ```php
 //Add this into backend/config/main-local.php
+//
 $config['modules']['gii']['generators'] = [
-        'kartikgii-crud' => ['class' => 'warrence\kartikgii\crud\Generator'],
+        'kartikgii-crud' => ['class' => 'zhangyc310\kartikgii\crud\Generator'],
     ];
+
+// $config['modules']['gii']['generators'] = [
+//         'kartikgii-crud' => ['class' => 'warrence\kartikgii\crud\Generator'],
+//     ];
 ```
 
 ```php

@@ -50,7 +50,7 @@ if (Yii::$app->request->isPost) {
 
         // var_dump($val);
         echo '<div class="col-lg-9"><input type="checkbox" name="Generator[formFields][]" value="' . $name . '" ' . $checked . '> <label control-label">' . $name . '</label></div>';
-        echo '<div class="col-lg-3">' . Html::dropDownList("Generator[inputType][$name]", $generator->inputType[$name],
+        echo '<div class="col-lg-3">' . yii\helpers\Html::dropDownList("Generator[inputType][$name]", $generator->inputType[$name],
             $generator->fieldTypes(), ['class' => 'form-control']) . '</div>';
     }
     echo "</div></div>";

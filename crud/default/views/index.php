@@ -3,50 +3,54 @@
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
 
-
 /**
  * @var yii\web\View $this
  * @var yii\gii\generators\crud\Generator $generator
  */
 
-$urlParams = $generator->generateUrlParams();
+$urlParams     = $generator->generateUrlParams();
 $nameAttribute = $generator->getNameAttribute();
 
 echo "<?php\n";
 
-
 ?>
 
 use yii\helpers\Html;
-use <?= $generator->indexWidgetType === 'grid' ? "kartik\\grid\\GridView" : "yii\\widgets\\ListView" ?>;
+use yii\helpers\Url;
+use <?=$generator->indexWidgetType === 'grid' ? "kartik\\grid\\GridView" : "yii\\widgets\\ListView";?>;
 use yii\widgets\Pjax;
 
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
-<?= !empty($generator->searchModelClass) ? " * @var " . ltrim($generator->searchModelClass, '\\') . " \$searchModel\n" : '' ?>
+<?=!empty($generator->searchModelClass) ? " * @var " . ltrim($generator->searchModelClass, '\\') . " \$searchModel\n" : '';?>
  */
 
-$this->title = <?= $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)))) ?>;
+$this->title = <?=$generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass))));?>;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-index">
+<div class="<?=Inflector::camel2id(StringHelper::basename($generator->modelClass));?>-index">
     <div class="page-header">
-        <h1><?= "<?= " ?>Html::encode($this->title) ?></h1>
+        <h1><?="<?= ";?>Html::encode($this->title) ?></h1>
     </div>
 <?php if (!empty($generator->searchModelClass)): ?>
-<?= "    <?php " . ($generator->indexWidgetType === 'grid' ? "// " : "") ?>echo $this->render('_search', ['model' => $searchModel]); ?>
-<?php endif; ?>
+<?="    <?php " . ($generator->indexWidgetType === 'grid' ? "// " : "");?>echo $this->render('_search', ['model' => $searchModel]); ?>
+<?php endif;?>
 
     <p>
-        <?= "<?php /* echo " ?>Html::a(<?= $generator->generateString('Create {modelClass}', ['modelClass' => Inflector::camel2words(StringHelper::basename($generator->modelClass))]) ?>, ['create'], ['class' => 'btn btn-success'])<?= "*/ " ?> ?>
+        <?="<?php /* echo ";?>Html::a(<?=$generator->generateString('Create {modelClass}', ['modelClass' => Inflector::camel2words(StringHelper::basename($generator->modelClass))]);?>, ['create'], ['class' => 'btn btn-success'])<?="*/ ";?> ?>
     </p>
 
 <?php if ($generator->indexWidgetType === 'grid'): ?>
-    <?= "<?php Pjax::begin(); echo " ?>GridView::widget([
+    <?="<?php Pjax::begin(); echo ";?>GridView::widget([
         'dataProvider' => $dataProvider,
-        <?= !empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n        'columns' => [\n" : "'columns' => [\n"; ?>
+        'options'      => ['id' => 'vpn358-grid', 'class' => 'grid-view table-scrollable'],
+        <?=!empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n        'columns' => [\n" : "'columns' => [\n";?>
             ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => 'yii\grid\CheckboxColumn',
+                'name'  => 'id',
+            ],
 
 <?php
 $count = 0;
@@ -72,7 +76,7 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
             $columnDisplay = "            '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',";
         }
         if (++$count < 6) {
-            echo $columnDisplay ."\n";
+            echo $columnDisplay . "\n";
         } else {
             echo "//" . $columnDisplay . " \n";
         }
@@ -85,7 +89,7 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
                 'buttons' => [
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>',
-                            Yii::$app->urlManager->createUrl(['<?= (empty($generator->moduleID) ? '' : $generator->moduleID . '/') . $generator->controllerID?>/view', <?= $urlParams ?>, 'edit' => 't']),
+                            Yii::$app->urlManager->createUrl(['<?=(empty($generator->moduleID) ? '' : $generator->moduleID . '/') . $generator->controllerID;?>/update', <?=$urlParams;?>, 'edit' => 't']),
                             ['title' => Yii::t('yii', 'Edit'),]
                         );
                     }
@@ -101,18 +105,28 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
             'type' => 'info',
             'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
-            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
+            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']). Html::a('<i class="fa fa-close"></i> 批量删除', "javascript:void(0);", ['class' => 'btn btn-sm btn-warning gridview']),
             'showFooter' => false
         ],
-    ]); Pjax::end(); ?>
+    ]); Pjax::end();
+$del_url = Url::to(['<?=strtolower(StringHelper::basename($generator->modelClass));?>/delete-all']);
+$this->registerJs('
+　　　　$(".gridview").on("click", function () {
+    　　　　var keys = $("#vpn358-grid").yiiGridView("getSelectedRows");
+    　　　　if (keys.length>0){
+        　　　　$.post("'.$del_url.'&id="+ (keys));
+    　　　　}
+　　　　});
+　　');
+    ?>
 <?php else: ?>
-    <?= "<?= " ?>ListView::widget([
+    <?="<?= ";?>ListView::widget([
         'dataProvider' => $dataProvider,
         'itemOptions' => ['class' => 'item'],
         'itemView' => function ($model, $key, $index, $widget) {
-            return Html::a(Html::encode($model-><?= $nameAttribute ?>), ['view', <?= $urlParams ?>]);
+            return Html::a(Html::encode($model-><?=$nameAttribute;?>), ['view', <?=$urlParams;?>]);
         },
     ]) ?>
-<?php endif; ?>
+<?php endif;?>
 
 </div>
