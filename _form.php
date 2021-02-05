@@ -1,8 +1,8 @@
 <?php
 
+use kartik\widgets\FileInput;
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
-
 
 /**
  * @var yii\web\View $this
@@ -10,7 +10,7 @@ use yii\helpers\StringHelper;
  */
 
 /** @var \yii\db\ActiveRecord $model */
-$model = new $generator->modelClass;
+$model          = new $generator->modelClass;
 $safeAttributes = $model->safeAttributes();
 if (empty($safeAttributes)) {
     $safeAttributes = $model->attributes();
@@ -24,17 +24,17 @@ use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\datecontrol\DateControl;
-use kartik\widgets\FileInput;
+use kartik\widgets\FileInput
 /**
  * @var yii\web\View $this
- * @var <?= ltrim($generator->modelClass, '\\') ?> $model
+ * @var <?=ltrim($generator->modelClass, '\\');?> $model
  * @var yii\widgets\ActiveForm $form
  */
 ?>
 
-<div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">
+<div class="<?=Inflector::camel2id(StringHelper::basename($generator->modelClass));?>-form">
 
-    <?= "<?php " ?>$form = ActiveForm::begin(['type' => ActiveForm::TYPE_HORIZONTAL]); echo Form::widget([
+    <?="<?php ";?>$form = ActiveForm::begin(['type' => ActiveForm::TYPE_HORIZONTAL]); echo Form::widget([
 
         'model' => $model,
         'form' => $form,
@@ -42,8 +42,8 @@ use kartik\widgets\FileInput;
         'attributes' => [
 
 <?php foreach ($safeAttributes as $attribute): ?>
-            <?= $generator->generateActiveField($attribute) . "\n\n"; ?>
-<?php endforeach; ?>
+            <?=$generator->generateActiveField($attribute) . "\n\n";?>
+<?php endforeach;?>
         ]
 
     ]);
