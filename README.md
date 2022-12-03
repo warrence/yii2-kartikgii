@@ -43,6 +43,9 @@ or add
 ```
 "warrence/yii2-kartikgii": "dev-master"
 ```
+# 注意，通过这种方式，下载 `yii2-kartikgii` 需要的相关包。
+然后下载我的修改版 `git clone https://github.com/zhangyc310/yii2-kartikgii`，并放到`vendor/zhangyc310`目录下。
+
 
 to the ```require``` section of your `composer.json` file.
 
@@ -59,9 +62,10 @@ $config['modules']['gii']['class'] = 'yii\gii\Module';
 ```php
 //Add this into backend/config/main-local.php
 $config['modules']['gii']['generators'] = [
-        'kartikgii-crud' => ['class' => 'warrence\kartikgii\crud\Generator'],
+        'kartikgii-crud' => ['class' => 'zhangyc310\kartikgii\crud\Generator'],
     ];
 ```
+注意，这里是 `zhangyc310\kartikgii\crud\Generator`
 
 ```php
 //Add 'gridview' into your 'modules' section in backend/config/main.php
