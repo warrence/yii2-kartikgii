@@ -5,8 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-//namespace warrence\kartikgii\crud;
-namespace zhangyc310\kartikgii\crud;
+namespace warrence\kartikgii\crud;
 
 use Yii;
 use yii\db\ActiveRecord;
@@ -276,13 +275,12 @@ class Generator extends \yii\gii\generators\crud\Generator
             }
         }
         $column = $tableSchema->columns[$attribute];
-        if ($this->inputType){
-            $type   = $this->inputType[$attribute];
-        }
+        $type   = $this->inputType[$attribute];
         if ($type === 'radioList') {
             //return "\$form->field(\$model, '$attribute')->checkbox()";
             return "'$attribute' => [
                 'type'    => Form::INPUT_RADIO_LIST,
+                'label' => '" . $attributeLabels[$attribute] . "',
                 'items'   => [true => 'Active', false => 'Inactive', 'ok'=> 'radioList'],
                 'options' => ['inline' => true],
         ],";
@@ -290,17 +288,17 @@ class Generator extends \yii\gii\generators\crud\Generator
         } elseif ($type === 'checkbox') {
             return "'$attribute' => [
             'type' => Form::INPUT_CHECKBOX,
-            'label' => 'Remember your settings?',
+            'label' => '" . $attributeLabels[$attribute] . "',
              ],";
         } elseif ($type === 'checkboxList') {
             return "'$attribute' => ['type' => Form::INPUT_CHECKBOX_LIST,
                  'items'=>[  'value1' => 'v1',   'value2' => 'v2'],
-                'options'=>['text' => 'Please select', 'options' => ['value' => 'none', 'class' => 'prompt', 'label' => 'Select']],
+                'options'=>['text' => 'Please select', 'options' => ['value' => 'none', 'class' => 'prompt', 'label' => 'Select " . $attributeLabels[$attribute] . "']],
              ],";
         } elseif ($type === 'dropDownList') {
             return "'$attribute' => ['type' => Form::INPUT_DROPDOWN_LIST,
                 'items'=>[  'value1' => 'value 1',   'value2' =>'value 2'],
-                'options'=>['text' => 'Please select', 'options' => ['value' => 'none', 'class' => 'prompt', 'label' => 'Select']],
+                'options'=>['text' => 'Please select', 'options' => ['value' => 'none', 'class' => 'prompt', 'label' => 'Select " . $attributeLabels[$attribute] . "']],
             ],";
         } elseif ($type === 'text') {
             return "'$attribute' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter " . $attributeLabels[$attribute] . "...','rows' => 6]],";

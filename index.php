@@ -104,13 +104,11 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
             'type' => 'info',
-            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> 新增', ['create'], ['class' => 'btn btn-success']),
-            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> ', ['index'], ['class' => 'btn btn-info']). Html::a('<i class="fa fa-close"></i> 批量删除', "javascript:void(0);", ['class' => 'btn btn-sm btn-warning gridview']),
+            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
+            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']). Html::a('<i class="fa fa-close"></i> 批量删除', "javascript:void(0);", ['class' => 'btn btn-sm btn-warning gridview']),
             'showFooter' => false
         ],
-    ]); 
-    Pjax::end();
-    // <?=strtolower(StringHelper::basename($generator->modelClass));?> 可能需要修改一下类的名称名称
+    ]); Pjax::end();
 $del_url = Url::to(['<?=strtolower(StringHelper::basename($generator->modelClass));?>/delete-all']);
 $this->registerJs('
 　　　　$(".gridview").on("click", function () {

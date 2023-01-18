@@ -19,23 +19,23 @@ use kartik\datecontrol\DateControl;
 use yii\widgets\Breadcrumbs;
 /**
  * @var yii\web\View $this
- * @var <?= ltrim($generator->modelClass, '\\') ?> $model
+ * @var <?=ltrim($generator->modelClass, '\\');?> $model
  */
 
-$this->title = $model-><?= $generator->getNameAttribute() ?>;
-$this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)))) ?>, 'url' => ['index']];
+$this->title = $model-><?=$generator->getNameAttribute();?>;
+$this->params['breadcrumbs'][] = ['label' => <?=$generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass))));?>, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 echo Breadcrumbs::widget([
     'links' =>  $this->params['breadcrumbs'] ,
 ]);
 ?>
-<div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-view">
+<div class="<?=Inflector::camel2id(StringHelper::basename($generator->modelClass));?>-view">
     <div class="page-header">
-        <h1><?= "<?= " ?>Html::encode($this->title) ?></h1>
+        <h1><?="<?= ";?>Html::encode($this->title) ?></h1>
     </div>
 
 
-    <?= "<?= " ?>DetailView::widget([
+    <?="<?= ";?>DetailView::widget([
         'model' => $model,
         'condensed' => false,
         'hover' => true,
@@ -57,7 +57,7 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
 
         if ($column->type === 'date') {
             echo
-"            [
+                "            [
                 'attribute' => '$column->name',
                 'format' => [
                     'date', (isset(Yii::\$app->modules['datecontrol']['displaySettings']['date']))
@@ -73,7 +73,7 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
 
         } elseif ($column->type === 'time') {
             echo
-"            [
+                "            [
                 'attribute' => '$column->name',
                 'format' => [
                     'time', (isset(Yii::\$app->modules['datecontrol']['displaySettings']['time']))
@@ -88,7 +88,7 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
             ],\n";
         } elseif ($column->type === 'datetime' || $column->type === 'timestamp') {
             echo
-"            [
+                "            [
                 'attribute' => '$column->name',
                 'format' => [
                     'datetime', (isset(Yii::\$app->modules['datecontrol']['displaySettings']['datetime']))
@@ -109,9 +109,9 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
 ?>
         ],
         'deleteOptions' => [
-            'url' => ['delete', 'id' => $model-><?=$generator->getTableSchema()->primaryKey[0]?>],
+            'url' => ['delete', 'id' => $model-><?=$generator->getTableSchema()->primaryKey[0];?>],
         ],
-        'enableEditMode' => true,
+        'enableEditMode' => false,
     ]) ?>
 
 </div>

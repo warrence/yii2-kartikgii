@@ -1,11 +1,10 @@
 <?php
-use yii\helpers\Html;
 /**
  * @var yii\web\View $this
  * @var yii\widgets\ActiveForm $form
  * @var yii\gii\generators\crud\Generator $generator
  */
-
+use yii\helpers\Html;
 echo $form->field($generator, 'modelClass');
 echo $form->field($generator, 'searchModelClass');
 echo $form->field($generator, 'controllerClass');
@@ -51,7 +50,7 @@ if (Yii::$app->request->isPost) {
 
         // var_dump($val);
         echo '<div class="col-lg-9"><input type="checkbox" name="Generator[formFields][]" value="' . $name . '" ' . $checked . '> <label control-label">' . $name . '</label></div>';
-        echo '<div class="col-lg-3">' . yii\helpers\Html::dropDownList("Generator[inputType][$name]", $generator->inputType[$name],
+        echo '<div class="col-lg-3">' . Html::dropDownList("Generator[inputType][$name]", $generator->inputType[$name],
             $generator->fieldTypes(), ['class' => 'form-control']) . '</div>';
     }
     echo "</div></div>";
