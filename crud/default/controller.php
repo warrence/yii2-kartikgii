@@ -115,6 +115,11 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             ]);
         }
     }
+    public function actionDeleteAll($id)
+        {
+            <?= $modelClass ?>::deleteAll('id in (' . $id . ')');
+            return $this->redirect(Yii::$app->request->referrer);
+        }
 
     /**
      * Updates an existing <?= $modelClass ?> model.
