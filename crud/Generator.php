@@ -276,7 +276,9 @@ class Generator extends \yii\gii\generators\crud\Generator
             }
         }
         $column = $tableSchema->columns[$attribute];
-        $type   = $this->inputType[$attribute];
+        if ($this->inputType){
+            $type   = $this->inputType[$attribute];
+        }
         if ($type === 'radioList') {
             //return "\$form->field(\$model, '$attribute')->checkbox()";
             return "'$attribute' => [
