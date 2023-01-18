@@ -82,6 +82,12 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
 <?php endif; ?>
     }
 
+    public function actionDeleteAll($id)
+    {
+         <?= $modelClass ?>::deleteAll('id in (' . $id . ')');
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
     /**
      * Displays a single <?= $modelClass ?> model.
      * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
