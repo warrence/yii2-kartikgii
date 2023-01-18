@@ -280,7 +280,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 		if ($this->inputType) {
 			$type = $this->inputType[$attribute];
 		}
-        $type   = $this->inputType[$attribute];
+        //$type   = $this->inputType[$attribute];
         if ($type === 'radioList') {
             //return "\$form->field(\$model, '$attribute')->checkbox()";
             return "'$attribute' => [
