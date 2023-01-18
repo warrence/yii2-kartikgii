@@ -32,19 +32,19 @@ For more information about kartik-v extension, please visit [kartik-v at Github]
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
+
 Either run
 
 ```
-$ php composer.phar require warrence/yii2-kartikgii "dev-master"
+$ php composer.phar require zhangyc310/yii2-kartikgii "dev-master" "dev-bulk-del"
 ```
+修改了安装命令，可以直接安装了。
 
 or add
 
 ```
-"warrence/yii2-kartikgii": "dev-master"
+"zhangyc310/yii2-kartikgii": ""dev-bulk-del""
 ```
-# 注意，通过这种方式，下载 `yii2-kartikgii` 需要的相关包。
-然后下载我的修改版 `git clone https://github.com/zhangyc310/yii2-kartikgii`，并放到`vendor/zhangyc310`目录下。
 
 
 to the ```require``` section of your `composer.json` file.
@@ -106,6 +106,22 @@ $config['modules']['gii']['generators'] = [
     ],
 ```
 
+## 关于批量删除功能的说明
+### 生成的 view/index.php 文件中的按钮路径，某些情况下需要修改一下
+```
+line75： $del_url = Url::to(['parse-log-rules/delete-all']);
+```
+默认类名为`ParseLogRules`，需要改为 `parse-log-rules`，非必要步骤。
+
+
 ## License
 
 **yii2-kartikgii** is released under the BSD 3-Clause License. See the bundled `LICENSE.md` for details.
+
+
+
+下面的不在需要了
+```
+##  注意，通过这种方式，下载 `yii2-kartikgii` 需要的相关包。
+##  然后下载我的修改版 `git clone https://github.com/zhangyc310/yii2-kartikgii`，并放到`vendor/zhangyc310`目录下。
+```
