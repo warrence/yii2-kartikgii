@@ -1,3 +1,13 @@
+## Enhances:
+bulk-del brach.
+1. add support more fieldtypes ,such as select2,file upload,checkbox,checkboxList,dropdowlist and so.
+2. bulk delete on index page
+
+![image](https://raw.githubusercontent.com/zhangyc310/yii2-kartikgii/bulk-del/images/gii-types.png)
+
+![image](https://raw.githubusercontent.com/zhangyc310/yii2-kartikgii/bulk-del/images/bulk-del.png)
+=============
+
 I would like to apologize for not following up with this plugin because i has been migrate over to Laravel. However i would like to thanks everyone for using this plugin. Please do let me know is there any nice fork of this project, i will share to link for everyone here. 
 
 yii2-kartikgii
@@ -22,17 +32,20 @@ For more information about kartik-v extension, please visit [kartik-v at Github]
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
+
 Either run
 
 ```
-$ php composer.phar require warrence/yii2-kartikgii "dev-master"
+$ php composer.phar require zhangyc310/yii2-kartikgii "dev-master" "dev-bulk-del"
 ```
+修改了安装命令，可以直接安装了。
 
 or add
 
 ```
-"warrence/yii2-kartikgii": "dev-master"
+"zhangyc310/yii2-kartikgii": ""dev-bulk-del""
 ```
+
 
 to the ```require``` section of your `composer.json` file.
 
@@ -49,9 +62,10 @@ $config['modules']['gii']['class'] = 'yii\gii\Module';
 ```php
 //Add this into backend/config/main-local.php
 $config['modules']['gii']['generators'] = [
-        'kartikgii-crud' => ['class' => 'warrence\kartikgii\crud\Generator'],
+        'kartikgii-crud' => ['class' => 'zhangyc310\kartikgii\crud\Generator'],
     ];
 ```
+注意，这里是 `zhangyc310\kartikgii\crud\Generator`
 
 ```php
 //Add 'gridview' into your 'modules' section in backend/config/main.php
@@ -92,6 +106,22 @@ $config['modules']['gii']['generators'] = [
     ],
 ```
 
+## 关于批量删除功能的说明
+### 生成的 view/index.php 文件中的按钮路径，某些情况下需要修改一下
+```
+line75： $del_url = Url::to(['parse-log-rules/delete-all']);
+```
+默认类名为`ParseLogRules`，需要改为 `parse-log-rules`，非必要步骤。
+
+
 ## License
 
 **yii2-kartikgii** is released under the BSD 3-Clause License. See the bundled `LICENSE.md` for details.
+
+
+
+下面的不在需要了
+```
+##  注意，通过这种方式，下载 `yii2-kartikgii` 需要的相关包。
+##  然后下载我的修改版 `git clone https://github.com/zhangyc310/yii2-kartikgii`，并放到`vendor/zhangyc310`目录下。
+```
